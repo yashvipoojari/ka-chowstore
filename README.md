@@ -63,12 +63,9 @@ ka-chow/
 
 ---
 
-## Getting Started
+## 👩‍💻 Built By
 
-Just open `index.html` in your browser — no build step or server required.
-
-Or visit the live site: [https://ka-chowstore.netlify.app/](https://ka-chowstore.netlify.app/)
-
----
+**Yashvi Poojari**  
+[GitHub](https://github.com/yashvipoojari)
 
 © 2026 KA-CHOW. All rights reserved.
