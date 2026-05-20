@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Product - KA-CHOW</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:#050505;
+  color:white;
+}
+
+/* NAVBAR */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+}
+
+header h1 {
+  color:white;
+  letter-spacing:3px;
+  font-weight:300;
+}
+
+nav a {
+  color:white !important;
+  text-decoration:none;
+  margin-left:25px;
+  font-size:14px;
+  letter-spacing:1px;
+  transition:0.3s;
+}
+
+nav a:hover {
+  color:#aaa;
+}
+
+/* LAYOUT */
+.container {
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap:80px;
+  padding:80px;
+  align-items:center;
+}
+
+/* IMAGE SECTION */
+.image {
+  position:relative;
+}
+
+.image img {
+  width:100%;
+  border-radius:20px;
+  background:#111;
+  padding:20px;
+  transition:0.4s;
+}
+
+.image:hover img {
+  transform:scale(1.03);
+}
+
+/* GLOW EFFECT */
+.image::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:20px;
+  box-shadow:0 0 60px rgba(255,255,255,0.08);
+  opacity:0;
+  transition:0.4s;
+}
+
+.image:hover::after {
+  opacity:1;
+}
+
+/* INFO */
+.info h1 {
+  font-size:36px;
+  font-weight:300;
+  line-height:1.4;
+}
+
+.brand {
+  color:#888;
+  margin-top:10px;
+  letter-spacing:1px;
+}
+
+.price {
+  font-size:28px;
+  margin-top:20px;
+  font-weight:500;
+}
+
+/* BUTTONS */
+.buttons {
+  margin-top:30px;
+}
+
+button {
+  padding:14px 26px;
+  margin-right:15px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+  letter-spacing:1px;
+  transition:0.3s;
+}
+
+.cart {
+  background:white;
+  color:black;
+}
+
+.cart:hover {
+  background:#ddd;
+}
+
+.back {
+  background:#111;
+  color:#aaa;
+}
+
+.back:hover {
+  color:white;
+}
+
+/* MICRO DETAILS */
+.divider {
+  width:60px;
+  height:2px;
+  background:#333;
+  margin:20px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>KA-CHOW!</h1>
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="products.html">COLLECTION</a>
+    <a href="cart.html">CART</a>
+    <a href="login.html">LOGIN</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <div class="image">
+    <img id="img">
+  </div>
+
+  <div class="info">
+  <h1 id="title"></h1>
+
+  <div class="divider"></div>
+
+  <p class="brand" id="brand"></p>
+  <p class="price" id="price"></p>
+
+  <div class="buttons">
+    <button class="cart" onclick="addToCart()">ADD TO CART</button>
+    <button class="back" onclick="goBack()">BACK</button>
+  </div>
+</div>
+
+<script>
+let p = JSON.parse(localStorage.getItem("product"));
+
+document.getElementById("img").src = p["Primary Image"];
+document.getElementById("title").innerText = p["Title"];
+document.getElementById("brand").innerText =
+  (p["Brand"] || "") + (p["Scale"] ? " - " + p["Scale"] : "");
+document.getElementById("price").innerText = p["Sale Price"];
+
+function addToCart(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(p);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart");
+}
+
+function goBack(){
+  window.location.href = "products.html";
+}
+</script>
+
+</body>
+</html>
+
+

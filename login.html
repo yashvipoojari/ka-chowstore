@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Login - KA-CHOW</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:#0a0a0a;
+  color:white;
+}
+
+/* NAVBAR */
+header {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 60px;
+  background:#000;
+}
+
+nav a {
+  color:white;
+  margin-left:25px;
+  text-decoration:none;
+}
+
+/* MAIN */
+.container {
+  max-width:500px;
+  margin:80px auto;
+}
+
+h1 {
+  text-align:center;
+  letter-spacing:3px;
+  margin-bottom:40px;
+}
+
+/* FORM */
+label {
+  font-size:14px;
+  color:#aaa;
+}
+
+input {
+  width:100%;
+  padding:12px;
+  margin:10px 0 20px;
+  background:#111;
+  border:1px solid #222;
+  color:white;
+}
+
+/* BUTTON */
+.loginBtn {
+  width:100%;
+  padding:14px;
+  background:#e60023;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.googleBtn {
+
+  padding:8px 14px;
+  margin-top:12px;
+
+  background:#111;
+  color:#ccc;
+
+  border:1px solid #333;
+  border-radius:6px;
+
+  font-size:13px;
+  letter-spacing:0.5px;
+
+
+  display:block;
+  margin:12px auto;
+  gap:8px;
+
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.googleBtn img {
+  width:14px;
+}
+
+.googleBtn:hover {
+  background:#1a1a1a;
+  color:white;
+  border-color:#555;
+}
+
+/* LINKS */
+.links {
+  margin-top:15px;
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:#aaa;
+}
+
+/* REGISTER */
+.register {
+  margin-top:40px;
+  padding-top:30px;
+  border-top:1px solid #222;
+}
+
+.register button {
+  width:100%;
+  padding:12px;
+  background:#333;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h2>KA-CHOW</h2>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="products.html">COLLECTION</a>
+    <a href="cart.html">CART</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <h1>LOG IN</h1>
+
+<label>Email</label> <input id="email" placeholder="your@email.com">
+
+<label>Password</label> <input id="password" type="password">
+
+<button class="loginBtn" onclick="login()">LOGIN</button>
+<button class="googleBtn" onclick="googleLogin()">
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+  Google
+</button>
+
+  <div class="links">
+    <span>Forgot password?</span>
+  </div>
+
+  <div class="register">
+    <p>NEW CUSTOMER?</p>
+    <button onclick="register()">REGISTER</button>
+  </div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+console.log("Firebase loaded");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDXa0Z2lVPt2Q9e-v3kAqGLSfaC4HvPcMk",
+  authDomain: "kachow-45d8b.firebaseapp.com",
+  projectId: "kachow-45d8b",
+  storageBucket: "kachow-45d8b.firebasestorage.app",
+  messagingSenderId: "233957111642",
+  appId: "1:233957111642:web:ec421942db7e0066b6e563"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.googleLogin = function () {
+  console.log("Button clicked");
+
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      alert("Welcome " + user.displayName);
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error.message);
+    });
+};
+
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout - KA-CHOW</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:#0a0a0a;
+  color:white;
+}
+
+/* HEADER */
+header {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 50px;
+  background:rgba(0,0,0,0.7);
+}
+
+/* BUTTON */
+.checkoutBtn {
+  padding:14px 30px;
+  background:white;
+  color:black;
+  border:none;
+  cursor:pointer;
+  font-weight:500;
+}
+
+/* MODAL */
+.modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  animation:fadeIn 0.3s ease;
+}
+
+.modalBox {
+  background:#111;
+  padding:30px;
+  width:350px;
+  border-radius:15px;
+  box-shadow:0 0 30px rgba(255,255,255,0.1);
+}
+
+/* STEPS */
+.step {
+  display:none;
+  animation:slide 0.4s ease;
+}
+
+.step.active {
+  display:block;
+}
+
+/* INPUTS */
+input {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#1a1a1a;
+  border:1px solid #333;
+  color:white;
+  border-radius:6px;
+}
+
+/* BUTTONS */
+.primary {
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  background:white;
+  color:black;
+  border:none;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+.secondary {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#222;
+  color:#aaa;
+  border:none;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+/* ANIMATIONS */
+@keyframes slide {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h2>KA-CHOW Checkout</h2>
+</header>
+
+<div style="text-align:center; margin-top:80px;">
+  <h1>Secure Checkout</h1>
+  <button class="checkoutBtn" onclick="openModal()">Proceed to Pay</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modalBox">
+
+    <!-- STEP 1: METHOD -->
+    <div id="step1" class="step active">
+      <h3>Select Payment Method</h3>
+      <button class="primary" onclick="selectMethod('card')"> Card</button>
+      <button class="primary" onclick="selectMethod('upi')"> UPI</button>
+      <button class="secondary" onclick="closeModal()">Cancel</button>
+    </div>
+
+    <!-- CARD -->
+    <div id="cardStep" class="step">
+      <h3>Card Details</h3>
+      <input placeholder="Card Number">
+      <input placeholder="MM/YY">
+      <input placeholder="CVV">
+      <button class="primary" onclick="goOTP()">Pay</button>
+      <button class="secondary" onclick="back()">Back</button>
+    </div>
+
+    <!-- UPI -->
+    <div id="upiStep" class="step">
+      <h3>UPI Payment</h3>
+      <input placeholder="example@upi">
+      <button class="primary" onclick="goOTP()">Pay</button>
+      <button class="secondary" onclick="back()">Back</button>
+    </div>
+
+    <!-- OTP -->
+    <div id="otpStep" class="step">
+      <h3>Enter OTP</h3>
+      <input placeholder="1234">
+      <button class="primary" onclick="success()">Verify</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+function openModal(){
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+/* STEP SWITCH */
+function showStep(id){
+  document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function selectMethod(type){
+  if(type === "card"){
+    showStep("cardStep");
+  } else {
+    showStep("upiStep");
+  }
+}
+
+function goOTP(){
+  showStep("otpStep");
+}
+
+function back(){
+  showStep("step1");
+}
+
+/* SUCCESS */
+function success(){
+  alert("Payment Successful ");
+
+  localStorage.removeItem("cart");
+
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

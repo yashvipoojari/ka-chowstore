@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Cart - KA-CHOW</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:#0a0a0a;
+  color:white;
+}
+
+/* NAVBAR */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+}
+
+header h1 {
+  color:white;
+  letter-spacing:3px;
+  font-weight:300;
+}
+
+nav a {
+  color:white !important;
+  text-decoration:none;
+  margin-left:25px;
+  font-size:14px;
+  letter-spacing:1px;
+  transition:0.3s;
+}
+
+nav a:hover {
+  color:#aaa;
+}
+
+/* TITLE */
+.title {
+  text-align:center;
+  padding:40px;
+  font-size:26px;
+  letter-spacing:2px;
+}
+
+/* TABLE */
+.container {
+  max-width:1000px;
+  margin:auto;
+}
+
+.table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th {
+  color:#777;
+  text-align:left;
+  padding:15px;
+  border-bottom:1px solid #222;
+}
+
+.table td {
+  padding:20px 15px;
+  border-bottom:1px solid #111;
+}
+
+/* PRODUCT */
+.product {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.product img {
+  width:80px;
+  border-radius:8px;
+}
+
+/* QUANTITY */
+.qty button {
+  padding:5px 10px;
+  background:#111;
+  color:white;
+  border:1px solid #333;
+}
+
+/* TOTAL */
+.summary {
+  text-align:right;
+  margin-top:30px;
+}
+
+.summary h2 {
+  font-weight:400;
+}
+
+/* CHECKOUT */
+.checkout {
+  background:white;
+  color:black;
+  border:none;
+  padding:12px 30px;
+  margin-top:15px;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>KA-CHOW!</h1>
+
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="products.html">COLLECTION</a>
+    <a href="cart.html">CART</a>
+    <a href="login.html">LOGIN</a>
+  </nav>
+</header>
+
+<div class="title">CART</div>
+
+<div class="container">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>PRODUCT</th>
+      <th>PRICE</th>
+      <th>QUANTITY</th>
+      <th>TOTAL</th>
+    </tr>
+  </thead>
+
+  <tbody id="cartItems"></tbody>
+</table>
+
+<div class="summary">
+  <h2 id="total"></h2>
+  <a href="checkout.html">
+  <button>Checkout</button>
+</a>
+</div>
+
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function render(){
+  let container = document.getElementById("cartItems");
+  container.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((p, i) => {
+
+    let price = parseInt((p["Sale Price"]||"").replace(/\D/g,'')) || 0;
+    total += price;
+
+    let row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>
+        <div class="product">
+          <img src="${p['Primary Image']}">
+          <div>${p.Title}</div>
+        </div>
+      </td>
+
+      <td>Rs.${price}</td>
+
+      <td>
+        <div class="qty">
+          <button onclick="removeItem(${i})">-</button>
+          <span>1</span>
+          <button onclick="addAgain(${i})">+</button>
+        </div>
+      </td>
+
+      <td>Rs.${price}</td>
+    `;
+
+    container.appendChild(row);
+  });
+
+  document.getElementById("total").innerText = "Total: Rs." + total;
+}
+
+function removeItem(i){
+  cart.splice(i,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  render();
+}
+
+function addAgain(i){
+  cart.push(cart[i]);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  render();
+}
+
+function checkout(){
+  window.location.href = "checkout.html";
+}
+
+render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Payment - KA-CHOW</title>
+
+<style>
+body {
+  margin:0;
+  background:#0a0a0a;
+  color:white;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.box {
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+  width:350px;
+  text-align:center;
+}
+
+.step {
+  display:none;
+}
+
+.step.active {
+  display:block;
+}
+
+input {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#222;
+  border:1px solid #333;
+  color:white;
+}
+
+button {
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  cursor:pointer;
+}
+
+.primary {
+  background:white;
+  color:black;
+}
+
+.secondary {
+  background:#333;
+  color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+  <!-- STEP 1 -->
+
+  <div id="step1" class="step active">
+    <h3>Select Payment</h3>
+    <button onclick="selectMethod('card')">Card</button>
+    <button onclick="selectMethod('upi')">UPI</button>
+  </div>
+
+  <!-- CARD -->
+
+  <div id="cardStep" class="step">
+    <h3>Card Details</h3>
+    <input placeholder="Card Number">
+    <input placeholder="MM/YY">
+    <input placeholder="CVV">
+    <button class="primary" onclick="goOTP()">Pay</button>
+  </div>
+
+  <!-- UPI -->
+
+  <div id="upiStep" class="step">
+    <h3>UPI Payment</h3>
+    <input placeholder="your@upi">
+    <button class="primary" onclick="goOTP()">Pay</button>
+  </div>
+
+  <!-- OTP -->
+
+  <div id="otpStep" class="step">
+    <h3>Enter OTP</h3>
+    <input placeholder="1234">
+    <button class="primary" onclick="success()">Verify</button>
+  </div>
+
+</div>
+
+<script>
+function selectMethod(type){
+  document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+
+  if(type === "card"){
+    document.getElementById("cardStep").classList.add("active");
+  } else {
+    document.getElementById("upiStep").classList.add("active");
+  }
+}
+
+function goOTP(){
+  document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+  document.getElementById("otpStep").classList.add("active");
+}
+
+function success(){
+  alert("Payment Successful ✅");
+
+  localStorage.removeItem("cart");
+
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

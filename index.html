@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>KA-CHOW!</title>
+
+<style>
+/* RESET */
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background:#0a0a0a;
+  color:white;
+}
+
+/* NAVBAR */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+  background:rgba(0,0,0,0.7);
+}
+
+header h1 {
+  letter-spacing:3px;
+  font-weight:300;
+}
+
+nav a {
+  color:white;
+  text-decoration:none;
+  margin-left:25px;
+}
+
+/* HERO */
+.hero {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-left:80px;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80') center/cover;
+}
+
+.hero h2 {
+  font-size:64px;
+  font-weight:200;
+}
+
+.hero button {
+  margin-top:20px;
+  padding:12px 30px;
+  border:1px solid white;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+}
+
+.hero button:hover {
+  background:white;
+  color:black;
+}
+
+/* SECTION */
+.section {
+  padding:80px 50px;
+  text-align:center;
+  width:100%;
+}
+
+/* GRID */
+.featured-grid {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:25px;
+  width:100%;
+}
+
+/* CARD */
+.featured-card {
+  position:relative;
+  overflow:hidden;
+  border-radius:15px;
+  cursor:pointer;
+}
+
+/* IMAGE */
+.featured-card img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  transition:0.5s;
+}
+
+/* OVERLAY */
+.overlay {
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  transition:0.4s;
+}
+
+.overlay h3 {
+  font-weight:300;
+  letter-spacing:2px;
+}
+
+/* HOVER */
+.featured-card:hover img {
+  transform:scale(1.1);
+  filter:blur(2px) brightness(0.6);
+}
+
+.featured-card:hover .overlay {
+  opacity:1;
+}
+
+/* FOOTER (FIXED) */
+footer {
+  width:100%;
+  padding:40px;
+  text-align:center;
+  color:#777;
+  border-top:1px solid #222;
+  margin-top:60px;
+  clear:both;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>KA-CHOW!</h1>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="products.html">COLLECTION</a>
+    <a href="cart.html">CART</a>
+    <a href="login.html">LOGIN</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h2>Crafted Perfection</h2>
+  <p>Luxury Diecast Models for Collectors</p>
+  <a href="products.html">
+    <button>Explore Collection</button>
+  </a>
+</section>
+
+<!-- FEATURED -->
+<section class="section">
+  <h2>Featured Collections</h2>
+
+  <div class="featured-grid">
+
+    <div class="featured-card" onclick="goToScale('1:18')">
+      <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537" />
+      <div class="overlay"><h3>1:18 Scale</h3></div>
+    </div>
+
+    <div class="featured-card" onclick="goToScale('1:24')">
+      <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2" />
+      <div class="overlay"><h3>1:24 Scale</h3></div>
+    </div>
+
+    <div class="featured-card" onclick="goToScale('1:12')">
+      <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=800&q=80">
+      <div class="overlay"><h3>1:12 Scale</h3></div>
+    </div>
+
+    <div class="featured-card" onclick="goToScale('1:32')">
+      <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80">
+      <div class="overlay"><h3>1:32 Scale</h3></div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 KA-CHOW. All rights reserved.
+</footer>
+
+<script>
+function goToScale(scale){
+  localStorage.setItem("selectedScale", scale);
+  window.location.href = "products.html";
+}
+</script>
+
+</body>
+</html>
