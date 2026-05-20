@@ -63,7 +63,7 @@ ka-chow/
 
 ---
 
-## 👩‍💻 Built By
+## Built By
 
 **Yashvi Poojari**  
 [GitHub](https://github.com/yashvipoojari)
